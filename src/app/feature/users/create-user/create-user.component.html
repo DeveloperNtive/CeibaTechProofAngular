@@ -11,7 +11,7 @@
     <div class="mb-20">
       <label for="user-create__name" class="form-label">Name</label>
       <input type="text" id="user-create__name" class="form-control" placeholder="Name" aria-label="name"
-        aria-describedby="basic-addon1" formControlName="name" (input)="checkButtonAvaliabilty()" required>
+        aria-describedby="basic-addon1" formControlName="name" (input)="checkButtonAvaliabilty()" (blur)="checkButtonAvaliabilty()" required>
       <div id="user-create__name-error" #createUserNameError>
         {{nameErrorMessage}}
       </div>
@@ -19,7 +19,7 @@
     <div class="mb-20">
       <label for="user-create__job" class="form-label">Job</label>
       <input type="text" id="user-create__job" class="form-control" placeholder="Job" aria-label="job"
-        aria-describedby="basic-addon1" formControlName="job" (input)="checkButtonAvaliabilty()" required>
+        aria-describedby="basic-addon1" formControlName="job" (input)="checkButtonAvaliabilty()" (blur)="checkButtonAvaliabilty()" required>
       <div id="user-create__job-error" #createUserJobError>
         {{jobErrorMessage}}
       </div>
