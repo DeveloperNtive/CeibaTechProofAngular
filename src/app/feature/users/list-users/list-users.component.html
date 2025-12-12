@@ -10,7 +10,7 @@
   Remplazar [index] por el valor ejemplo "user-list__table-item-0"
 -->
 <main class="px-50 pt-20">
-  <input type="search" class="mb-20" name="" id="user-list__filter" [(ngModel)]="filtro" (click)="clearInput()" placeholder="Search User">
+  <input type="search" class="mb-20" name="" id="user-list__filter" [(ngModel)]="filtro" placeholder="Search User">
   <table id="user-list__table">
     <thead>
       <tr>
@@ -21,11 +21,12 @@
       </tr>
     </thead>
     <tbody #tbody>
-      <tr id="user-list__table-item-{{i}}" *ngFor="let user of usersToFilter | filterUserByName: filtro; index as i ">
-        <td id="user-list__table-item-{{i}}-first_name">{{user.first_name}}</td><!--id-->
+      <tr id="user-list__table-item-{{i}}" *ngFor="let user of users | filterUserByName: filtro; index as i ">
+        <td id="user-list__table-item-{{i}}-first_name">{{user.first_name}} {{user.last_name}}</td><!--id-->
         <td id="user-list__table-item-{{i}}-email">{{user.email}}</td><!--email-->
         <td>
-          <img id="user-list__table-item-{{i}}-avatar" src="{{user.avatar}}" alt="User Avatar" height="100px" width="100px"><!--avatar-->
+          <img id="user-list__table-item-{{i}}-avatar" src="{{user.avatar}}" alt="User Avatar" height="100px"
+            width="100px"><!--avatar-->
         </td>
         <td>
           <button id="user-list__table-item-{{i}}-btn-delete" (click)="deleteUserByIndex(user.id)">Eliminar</button>
@@ -33,4 +34,13 @@
       </tr>
     </tbody>
   </table>
+  <div class="pagination">
+    <button>Prev</button>
+
+    <ng-container *ngFor="let page of total">
+      <span class="page">{{ page }}</span>
+    </ng-container>
+
+    <button>Next</button>
+  </div>
 </main>

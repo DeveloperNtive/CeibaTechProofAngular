@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsersService } from './shared/services/users/users.service';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss'],
 })
-export class CreateUserComponent implements OnInit {
+export class CreateUserComponent {
   @ViewChild('CreateUser', { static: true })
   createUserButton!: ElementRef<HTMLButtonElement>;
   @ViewChild('createUserNameError', { static: true })
@@ -21,16 +22,14 @@ export class CreateUserComponent implements OnInit {
   jobErrorMessage = '';
 
   constructor(
-    private readonly router: Router, 
-    private renderer: Renderer2, 
-    private fb: FormBuilder) {
+    private readonly router: Router,
+    private renderer: Renderer2,
+    private fb: FormBuilder,
+    private userService: UsersService) {
     this.form = this.fb.group({
       name: new FormControl('', [Validators.required]),
       job: new FormControl('', Validators.required),
     });
-  }
-
-  ngOnInit(): void {
   }
 
   checkButtonAvaliabilty() {
@@ -55,6 +54,13 @@ export class CreateUserComponent implements OnInit {
     if (this.form.valid) {
       this.renderer.removeAttribute(this.createUserButton.nativeElement, 'disabled');
     }
+  }
+
+  createUser() {
+    this.userService.createUser(
+      this.form.get('name')?.value,
+      this.form.get('job')?.value
+    ).then(() => this.redirectToListUsers());
   }
 
   /**
